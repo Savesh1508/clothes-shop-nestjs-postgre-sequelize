@@ -18,8 +18,8 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
   @ApiOperation({summary:"Create order"})
   @ApiResponse({status: 200, description: 'New order', type: [Order]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Post()
   async createOrder(@Body() createOrderDto: CreateOrderDto):Promise<Order>{
     const order = await this.orderService.createOrder(createOrderDto);
@@ -44,8 +44,8 @@ export class OrderController {
 
   @ApiOperation({summary:"Update order by Id"})
   @ApiResponse({status: 200, description: 'Updated order', type: [Order]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Put(':id')
   async updateOrderById(@Param('id') id:string, @Body() updateComanyDto: UpdateOrderDto):Promise<Order>{
     const order = await this.orderService.updateOrderById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class OrderController {
 
   @ApiOperation({summary:"Delete order by Id"})
   @ApiResponse({status: 200, description: 'Deleted order', type: [Order]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const order = await this.orderService.deleteOrderById(+id);

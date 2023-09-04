@@ -11,6 +11,6 @@ import { JwtService } from '@nestjs/jwt';
     SequelizeModule.forFeature([Brand]),
   ],
   controllers: [BrandController],
-  providers: [BrandService, JwtService]
+  providers: [BrandService]
 })
 export class BrandModule {}

@@ -18,8 +18,8 @@ export class DesignerController {
   constructor(private readonly designerService: DesignerService) {}
   @ApiOperation({summary:"Create designer"})
   @ApiResponse({status: 200, description: 'New designer', type: [Designer]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Post()
   async createDesigner(@Body() createDesignerDto: CreateDesignerDto):Promise<Designer>{
     const designer = await this.designerService.createDesigner(createDesignerDto);
@@ -44,9 +44,8 @@ export class DesignerController {
 
   @ApiOperation({summary:"Update designer by Id"})
   @ApiResponse({status: 200, description: 'Updated designer', type: [Designer]})
-    @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Put(':id')
   async updateDesignerById(@Param('id') id:string, @Body() updateComanyDto: UpdateDesignerDto):Promise<Designer>{
     const designer = await this.designerService.updateDesignerById(+id, updateComanyDto);
@@ -55,8 +54,8 @@ export class DesignerController {
 
   @ApiOperation({summary:"Delete designer by Id"})
   @ApiResponse({status: 200, description: 'Deleted designer', type: [Designer]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const designer = await this.designerService.deleteDesignerById(+id);

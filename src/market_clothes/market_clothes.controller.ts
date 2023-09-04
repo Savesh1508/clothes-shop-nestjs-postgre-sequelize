@@ -20,8 +20,8 @@ export class MarketClothesController {
   constructor(private readonly marketClothesService: MarketClothesService) {}
   @ApiOperation({summary:"Create market clothes"})
   @ApiResponse({status: 200, description: 'New market clothes', type: [MarketClothes]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Post()
   async createMarketClothes(@Body() createMarketClothesDto: CreateMarketClothesDto):Promise<MarketClothes>{
     const marketClothes = await this.marketClothesService.createMarketClothes(createMarketClothesDto);
@@ -46,8 +46,8 @@ export class MarketClothesController {
 
   @ApiOperation({summary:"Update market clothes by Id"})
   @ApiResponse({status: 200, description: 'Updated market clothes', type: [MarketClothes]})
-  @UseGuards(UserSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(UserSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateMarketClothesById(@Param('id') id:string, @Body() updateComanyDto: UpdateMarketClothesDto):Promise<MarketClothes>{
     const marketClothes = await this.marketClothesService.updateMarketClothesById(+id, updateComanyDto);
@@ -56,8 +56,8 @@ export class MarketClothesController {
 
   @ApiOperation({summary:"Delete market clothes by Id"})
   @ApiResponse({status: 200, description: 'Deleted market clothes', type: [MarketClothes]})
-  @UseGuards(UserSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(UserSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const marketClothes = await this.marketClothesService.deleteMarketClothesById(+id);

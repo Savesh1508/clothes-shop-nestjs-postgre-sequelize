@@ -39,7 +39,7 @@ export class ClientService {
       hashed_password: hashed_password,
     });
 
-    const role = await this.roleService.getRoleByValue('USER');
+    const role = await this.roleService.getRoleByValue('MARKET');
     // const role = await this.roleService.getRoleByValue('ADMIN');
     // const role = await this.roleService.getRoleByValue('SUPERADMIN');
     if (!role) {
@@ -118,7 +118,7 @@ export class ClientService {
       hashed_password: hashed_password,
     });
 
-    const role = await this.roleService.getRoleByValue('USER');
+    const role = await this.roleService.getRoleByValue('MARKET');
     if (!role) {
       throw new BadRequestException('Role not found!');
     }

@@ -14,9 +14,14 @@ import { MailModule } from 'src/mail/mail.module';
     SequelizeModule.forFeature([Client, Role, ClientRoles]),
     JwtModule.register({}),
     MailModule,
-    RolesModule,
+    RolesModule
   ],
   controllers: [ClientController],
-  providers: [ClientService, JwtService],
+  providers: [ClientService],
+  exports: [ClientService]
 })
 export class ClientModule {}
+
+
+
+

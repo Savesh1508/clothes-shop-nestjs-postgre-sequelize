@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 @Module({
   imports: [SequelizeModule.forFeature([Role])],
   controllers: [RoleController],
-  providers: [RoleService, JwtService],
+  providers: [RoleService],
   exports: [RoleService]
 })
 export class RolesModule {}

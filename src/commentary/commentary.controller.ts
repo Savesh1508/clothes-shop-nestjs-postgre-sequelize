@@ -18,8 +18,8 @@ export class CommentaryController {
   constructor(private readonly commentaryService: CommentaryService) {}
   @ApiOperation({summary:"Create commentary"})
   @ApiResponse({status: 200, description: 'New commentary', type: [Commentary]})
-  @Roles('SUPERADMIN', 'ADMIN', 'USER')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'USER')
+  // @UseGuards(RolesGuard)
   @Post()
   async createCommentary(@Body() createCommentaryDto: CreateCommentaryDto):Promise<Commentary>{
     const commentary = await this.commentaryService.createCommentary(createCommentaryDto);
@@ -44,8 +44,8 @@ export class CommentaryController {
 
   @ApiOperation({summary:"Update commentary by Id"})
   @ApiResponse({status: 200, description: 'Updated commentary', type: [Commentary]})
-  @Roles('SUPERADMIN', 'ADMIN', 'USER')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'USER')
+  // @UseGuards(RolesGuard)
   @Put(':id')
   async updateCommentaryById(@Param('id') id:string, @Body() updateComanyDto: UpdateCommentaryDto):Promise<Commentary>{
     const commentary = await this.commentaryService.updateCommentaryById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class CommentaryController {
 
   @ApiOperation({summary:"Delete commentary by Id"})
   @ApiResponse({status: 200, description: 'Deleted commentary', type: [Commentary]})
-  @Roles('SUPERADMIN', 'ADMIN', 'USER')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'USER')
+  // @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const commentary = await this.commentaryService.deleteCommentaryById(+id);

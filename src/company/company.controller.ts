@@ -18,8 +18,8 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
   @ApiOperation({summary:"Create company"})
   @ApiResponse({status: 200, description: 'New company', type: [Company]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Post()
   async createCompany(@Body() createCompanyDto: CreateCompanyDto):Promise<Company>{
     const company = await this.companyService.createCompany(createCompanyDto);
@@ -44,9 +44,8 @@ export class CompanyController {
 
   @ApiOperation({summary:"Update company by Id"})
   @ApiResponse({status: 200, description: 'Updated company', type: [Company]})
-    @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Put(':id')
   async updateCompanyById(@Param('id') id:string, @Body() updateComanyDto: UpdateCompanyDto):Promise<Company>{
     const company = await this.companyService.updateCompanyById(+id, updateComanyDto);
@@ -55,8 +54,8 @@ export class CompanyController {
 
   @ApiOperation({summary:"Delete company by Id"})
   @ApiResponse({status: 200, description: 'Deleted company', type: [Company]})
-  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  // @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const company = await this.companyService.deleteCompanyById(+id);

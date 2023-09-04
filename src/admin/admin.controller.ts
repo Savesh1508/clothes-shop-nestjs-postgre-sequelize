@@ -26,8 +26,8 @@ export class AdminController {
 
   @ApiOperation({summary:"Create admin"})
   @ApiResponse({status: 200, description: 'New admin', type: [Admin]})
-  @Roles('SUPERADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN')
+  // @UseGuards(RolesGuard)
   @Post()
   async createAdmin(
     @Body() createAdminDto: CreateAdminDto,
@@ -37,8 +37,8 @@ export class AdminController {
     return newAdminTokens;
   }
 
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get all admins"})
   @ApiResponse({status: 200, description: 'List of admins', type: [Admin]})
   @Get()
@@ -47,8 +47,8 @@ export class AdminController {
     return admins;
   }
 
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get admin by Id"})
   @ApiResponse({status: 200, description: 'Admin by Id', type: [Admin]})
   @Get(':id')
@@ -57,8 +57,8 @@ export class AdminController {
     return admin;
   }
 
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get admin by email"})
   @ApiResponse({status: 200, description: 'Admin by email', type: [Admin]})
   @Post('email')
@@ -69,8 +69,8 @@ export class AdminController {
 
   @ApiOperation({summary:"Update admin by Id"})
   @ApiResponse({status: 200, description: 'Updated admin', type: [Admin]})
-  @UseGuards(AdminSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(AdminSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateAdminById(@Param('id') id:string, @Body() updateComanyDto: UpdateAdminDto):Promise<Admin>{
     const admin = await this.adminService.updateAdminById(+id, updateComanyDto);
@@ -79,8 +79,8 @@ export class AdminController {
 
   @ApiOperation({summary:"Delete admin by Id"})
   @ApiResponse({status: 200, description: 'Deleted admin', type: [Admin]})
-  @UseGuards(AdminSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(AdminSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteAdminById(@Param('id') id: string) {
     const admin = await this.adminService.deleteAdminById(+id);
@@ -99,7 +99,7 @@ export class AdminController {
 
   @ApiOperation({ summary: "Login admin" })
   @ApiResponse({ status: 200, type: Admin })
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Post("sigin")
   login(
     @Body() loginAdminDto: LoginAdminDto,
@@ -111,8 +111,8 @@ export class AdminController {
   @ApiOperation({ summary: "Logout admin" })
   @ApiResponse({ status: 200, type: Admin })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(AdminSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post("logout")
   logout(
     @CookieGetter('refresh_token') refreshToken: string,
@@ -123,13 +123,13 @@ export class AdminController {
 
   @ApiOperation({ summary: "Activate admin" })
   @ApiResponse({ status: 200, type: [Admin] })
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Get('activate/:link')
   activate(@Param('link') link:string) {
     return this.adminService.activate(link);
   }
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Post(':id/refresh')
   refresh(
     @Param('id') id:string,
@@ -142,8 +142,8 @@ export class AdminController {
   @ApiOperation({summary:"Add role to admin"})
   @ApiResponse({status: 200, description: 'Updated admin', type: [Admin]})
   @HttpCode(200)
-  @Roles('SUPERADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN')
+  // @UseGuards(RolesGuard)
   @Post('add_role')
   addRole(@Body() addRoleAdminDto: AddRoleAdminDto) {
     return this.adminService.addRole(addRoleAdminDto);
@@ -152,8 +152,8 @@ export class AdminController {
   @ApiOperation({summary:"Remove role from admin"})
   @ApiResponse({status: 200, description: 'Updated admin', type: [Admin]})
   @HttpCode(200)
-  @Roles('SUPERADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN')
+  // @UseGuards(RolesGuard)
   @Post('remove_role')
   removeRole(@Body() addRoleAdminDto: AddRoleAdminDto) {
     return this.adminService.removeRole(addRoleAdminDto);

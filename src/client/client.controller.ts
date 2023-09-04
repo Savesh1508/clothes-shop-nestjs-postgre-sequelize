@@ -16,8 +16,8 @@ import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Roles } from 'src/decorators/roles-auth.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { AddRoleClientDto } from './dto/add-role.dto';
-import { UserSelfGuard } from '../guards/user-self.guard';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { UserSelfGuard } from '../guards/user-self.guard';
 
 @ApiTags('Clients')
 @Controller('clients')
@@ -26,7 +26,7 @@ export class ClientController {
 
   @ApiOperation({summary:"Create client"})
   @ApiResponse({status: 200, description: 'New client', type: [Client]})
-  // @Roles('SUPERADMIN', 'ADMIN')
+  // @Roles('SUPERADMIN')
   // @UseGuards(RolesGuard)
   @Post()
   async createClient(
@@ -73,8 +73,8 @@ export class ClientController {
 
   @ApiOperation({summary:"Delete client by Id"})
   @ApiResponse({status: 200, description: 'Deleted client', type: [Client]})
-  @UseGuards(UserSelfGuard)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(UserSelfGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteClientById(@Param('id') id: string) {
     const client = await this.clientService.deleteClientById(+id);
@@ -93,6 +93,7 @@ export class ClientController {
 
   @ApiOperation({ summary: "Login client" })
   @ApiResponse({ status: 200, type: Client })
+  @UseGuards(ClientGuard)
   @Post("signin")
   login(
     @Body() loginClientDto: LoginClientDto,
@@ -135,8 +136,8 @@ export class ClientController {
   @ApiOperation({summary:"Add role to client"})
   @ApiResponse({status: 200, description: 'Updated client', type: [Client]})
   @HttpCode(200)
-  @Roles('SUPERADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN')
+  // @UseGuards(RolesGuard)
   @Post('add_role')
   addRole(@Body() addRoleClientDto: AddRoleClientDto) {
     return this.clientService.addRole(addRoleClientDto);

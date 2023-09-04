@@ -16,8 +16,8 @@ import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Roles } from 'src/decorators/roles-auth.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { AddRoleMarketDto } from './dto/add-role.dto';
-import { UserSelfGuard } from '../guards/user-self.guard';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { UserSelfGuard } from '../guards/user-self.guard';
 
 @ApiTags('Markets')
 @Controller('markets')
@@ -26,7 +26,7 @@ export class MarketController {
 
   @ApiOperation({summary:"Create market"})
   @ApiResponse({status: 200, description: 'New market', type: [Market]})
-  // @Roles('SUPERADMIN', 'ADMIN')
+  // @Roles('SUPERADMIN')
   // @UseGuards(RolesGuard)
   @Post()
   async createMarket(
@@ -37,6 +37,8 @@ export class MarketController {
     return newMarketTokens;
   }
 
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get all markets"})
   @ApiResponse({status: 200, description: 'List of markets', type: [Market]})
   @Get()
@@ -45,6 +47,8 @@ export class MarketController {
     return markets;
   }
 
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get market by Id"})
   @ApiResponse({status: 200, description: 'Market by Id', type: [Market]})
   @Get(':id')
@@ -53,6 +57,8 @@ export class MarketController {
     return market;
   }
 
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get market by email"})
   @ApiResponse({status: 200, description: 'Market by email', type: [Market]})
   @Post('email')
@@ -123,8 +129,8 @@ export class MarketController {
     return this.marketService.activate(link);
   }
 
-  @Post(':id/refresh')
   // @UseGuards(MarketGuard)
+  @Post(':id/refresh')
   refresh(
     @Param('id') id:string,
     @CookieGetter('refresh_token') refreshToken: string,

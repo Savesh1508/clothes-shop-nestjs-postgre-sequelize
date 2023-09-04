@@ -18,8 +18,8 @@ export class RegionController {
   constructor(private readonly regionService: RegionService) {}
   @ApiOperation({summary:"Create region"})
   @ApiResponse({status: 200, description: 'New region', type: [Region]})
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @Post()
   async createRegion(@Body() createRegionDto: CreateRegionDto):Promise<Region>{
     const region = await this.regionService.createRegion(createRegionDto);
@@ -44,8 +44,8 @@ export class RegionController {
 
   @ApiOperation({summary:"Update region by Id"})
   @ApiResponse({status: 200, description: 'Updated region', type: [Region]})
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @Put(':id')
   async updateRegionById(@Param('id') id:string, @Body() updateComanyDto: UpdateRegionDto):Promise<Region>{
     const region = await this.regionService.updateRegionById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class RegionController {
 
   @ApiOperation({summary:"Delete region by Id"})
   @ApiResponse({status: 200, description: 'Deleted region', type: [Region]})
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN', 'ADMIN')
+  // @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const region = await this.regionService.deleteRegionById(+id);

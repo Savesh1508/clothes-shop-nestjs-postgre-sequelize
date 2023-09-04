@@ -10,6 +10,6 @@ import { JwtService } from '@nestjs/jwt';
     SequelizeModule.forFeature([Order]),
   ],
   controllers: [OrderController],
-  providers: [OrderService, JwtService]
+  providers: [OrderService]
 })
 export class OrderModule {}

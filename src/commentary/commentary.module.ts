@@ -10,6 +10,6 @@ import { JwtService } from '@nestjs/jwt';
     SequelizeModule.forFeature([Commentary]),
   ],
   controllers: [CommentaryController],
-  providers: [CommentaryService, JwtService]
+  providers: [CommentaryService]
 })
 export class CommentaryModule {}

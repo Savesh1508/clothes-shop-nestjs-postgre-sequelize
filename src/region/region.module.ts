@@ -9,6 +9,6 @@ import { JwtService } from '@nestjs/jwt';
     SequelizeModule.forFeature([Region]),
   ],
   controllers: [RegionController],
-  providers: [RegionService, JwtService]
+  providers: [RegionService]
 })
 export class RegionModule {}

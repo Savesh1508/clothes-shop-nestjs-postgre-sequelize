@@ -12,7 +12,7 @@ import { MailModule } from 'src/mail/mail.module';
 @Module({
   imports: [
     SequelizeModule.forFeature([Admin, Role, AdminRoles]),
-    JwtModule.register({}),
+    // JwtModule.register({}),
     MailModule,
     RolesModule
   ],

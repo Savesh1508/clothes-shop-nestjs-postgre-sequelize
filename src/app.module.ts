@@ -32,6 +32,8 @@ import { Clothes } from './clothes/model/clothes.model';
 import { MarketClothes } from './market_clothes/model/market_clothes.model';
 import { Order } from './order/model/order.model';
 import { Brand } from './brand/model/brand.model';
+// import { SharedModule } from './shared/shared.module';
+// import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -78,6 +80,7 @@ import { Brand } from './brand/model/brand.model';
     OrderModule,
     RegionModule,
     RolesModule,
+    // AuthModule,
     // SharedModule
   ],
   controllers: [],

@@ -19,6 +19,7 @@ export class ClientGuard implements CanActivate {
       throw new UnauthorizedException('Client unauthorized!');
     }
 
+
     async function verify(token:string, jwtService:JwtService) {
       const client: Partial<Client> = await jwtService.verify(token, {
         secret: process.env.ACCESS_TOKEN_KEY
