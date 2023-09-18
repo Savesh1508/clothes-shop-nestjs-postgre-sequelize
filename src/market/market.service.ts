@@ -161,6 +161,7 @@ export class MarketService {
     const { email, password } = loginMarketDto
     const market = await this.marketRepo.findOne({
       where: { email },
+      include: ['roles'], // Включите роли при загрузке клиента
     });
 
     if (!market) {
@@ -192,6 +193,7 @@ export class MarketService {
     };
     return response;
   }
+
 
   async logout(refreshToken: string, res: Response) {
     const marketData = await this.jwtService.verify(refreshToken, {
@@ -254,10 +256,14 @@ export class MarketService {
   }
 
   async getTokens(market: Market) {
+    if (!market || !market.roles || !Array.isArray(market.roles)) {
+      throw new BadRequestException('Invalid market data');
+    }
+
     const jwtpayload = {
       id: market.id,
       is_active: market.is_active,
-      roles: market.roles
+      roles: market.roles.map(role => role.value)
     };
 
     const [accessToken, refreshToken] = await Promise.all([

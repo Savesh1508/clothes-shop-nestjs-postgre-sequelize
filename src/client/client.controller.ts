@@ -26,8 +26,8 @@ export class ClientController {
 
   @ApiOperation({summary:"Create client"})
   @ApiResponse({status: 200, description: 'New client', type: [Client]})
-  // @Roles('SUPERADMIN')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   async createClient(
     @Body() createClientDto: CreateClientDto,
@@ -63,8 +63,8 @@ export class ClientController {
 
   @ApiOperation({summary:"Update client by Id"})
   @ApiResponse({status: 200, description: 'Updated client', type: [Client]})
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(UserSelfGuard)
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateClientById(@Param('id') id:string, @Body() updateComanyDto: UpdateClientDto):Promise<Client>{
     const client = await this.clientService.updateClientById(+id, updateComanyDto);
@@ -73,8 +73,8 @@ export class ClientController {
 
   @ApiOperation({summary:"Delete client by Id"})
   @ApiResponse({status: 200, description: 'Deleted client', type: [Client]})
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(UserSelfGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteClientById(@Param('id') id: string) {
     const client = await this.clientService.deleteClientById(+id);
@@ -105,8 +105,7 @@ export class ClientController {
   @ApiOperation({ summary: "Logout client" })
   @ApiResponse({ status: 200, type: Client })
   @HttpCode(HttpStatus.OK)
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post("logout")
   logout(
     @CookieGetter('refresh_token') refreshToken: string,
@@ -117,13 +116,13 @@ export class ClientController {
 
   @ApiOperation({ summary: "Activate client" })
   @ApiResponse({ status: 200, type: [Client] })
-  // @UseGuards(ClientGuard)
+  @UseGuards(ClientGuard)
   @Get('activate/:link')
   activate(@Param('link') link:string) {
     return this.clientService.activate(link);
   }
 
-  // @UseGuards(ClientGuard)
+  @UseGuards(ClientGuard)
   @Post(':id/refresh')
   refresh(
     @Param('id') id:string,
@@ -136,8 +135,8 @@ export class ClientController {
   @ApiOperation({summary:"Add role to client"})
   @ApiResponse({status: 200, description: 'Updated client', type: [Client]})
   @HttpCode(200)
-  // @Roles('SUPERADMIN')
   // @UseGuards(RolesGuard)
+  // @Roles('SUPERADMIN')
   @Post('add_role')
   addRole(@Body() addRoleClientDto: AddRoleClientDto) {
     return this.clientService.addRole(addRoleClientDto);
@@ -146,8 +145,8 @@ export class ClientController {
   @ApiOperation({summary:"Remove role from client"})
   @ApiResponse({status: 200, description: 'Updated client', type: [Client]})
   @HttpCode(200)
-  // @Roles('SUPERADMIN')
-  // @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN')
   @Post('remove_role')
   removeRole(@Body() addRoleClientDto: AddRoleClientDto) {
     return this.clientService.removeRole(addRoleClientDto);

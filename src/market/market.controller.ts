@@ -26,8 +26,8 @@ export class MarketController {
 
   @ApiOperation({summary:"Create market"})
   @ApiResponse({status: 200, description: 'New market', type: [Market]})
-  // @Roles('SUPERADMIN')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   async createMarket(
     @Body() createMarketDto: CreateMarketDto,
@@ -37,8 +37,6 @@ export class MarketController {
     return newMarketTokens;
   }
 
-  // @Roles('SUPERADMIN', 'ADMIN')
-  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get all markets"})
   @ApiResponse({status: 200, description: 'List of markets', type: [Market]})
   @Get()
@@ -47,8 +45,6 @@ export class MarketController {
     return markets;
   }
 
-  @Roles('SUPERADMIN', 'ADMIN')
-  @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get market by Id"})
   @ApiResponse({status: 200, description: 'Market by Id', type: [Market]})
   @Get(':id')
@@ -57,8 +53,6 @@ export class MarketController {
     return market;
   }
 
-  // @Roles('SUPERADMIN', 'ADMIN')
-  // @UseGuards(RolesGuard)
   @ApiOperation({summary:"Get market by email"})
   @ApiResponse({status: 200, description: 'Market by email', type: [Market]})
   @Post('email')
@@ -69,8 +63,8 @@ export class MarketController {
 
   @ApiOperation({summary:"Update market by Id"})
   @ApiResponse({status: 200, description: 'Updated market', type: [Market]})
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(UserSelfGuard)
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateMarketById(@Param('id') id:string, @Body() updateComanyDto: UpdateMarketDto):Promise<Market>{
     const market = await this.marketService.updateMarketById(+id, updateComanyDto);
@@ -79,8 +73,8 @@ export class MarketController {
 
   @ApiOperation({summary:"Delete market by Id"})
   @ApiResponse({status: 200, description: 'Deleted market', type: [Market]})
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(UserSelfGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteMarketById(@Param('id') id: string) {
     const market = await this.marketService.deleteMarketById(+id);
@@ -99,8 +93,8 @@ export class MarketController {
 
   @ApiOperation({ summary: "Login market" })
   @ApiResponse({ status: 200, type: Market })
-  // @UseGuards(MarketGuard)
-  @Post("sigin")
+  @UseGuards(MarketGuard)
+  @Post("signin")
   login(
     @Body() loginMarketDto: LoginMarketDto,
     @Res({ passthrough: true }) res: Response
@@ -111,8 +105,7 @@ export class MarketController {
   @ApiOperation({ summary: "Logout market" })
   @ApiResponse({ status: 200, type: Market })
   @HttpCode(HttpStatus.OK)
-  // @UseGuards(UserSelfGuard)
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post("logout")
   logout(
     @CookieGetter('refresh_token') refreshToken: string,
@@ -123,13 +116,13 @@ export class MarketController {
 
   @ApiOperation({ summary: "Activate market" })
   @ApiResponse({ status: 200, type: [Market] })
-  // @UseGuards(MarketGuard)
+  @UseGuards(MarketGuard)
   @Get('activate/:link')
   activate(@Param('link') link:string) {
     return this.marketService.activate(link);
   }
 
-  // @UseGuards(MarketGuard)
+  @UseGuards(MarketGuard)
   @Post(':id/refresh')
   refresh(
     @Param('id') id:string,
@@ -142,8 +135,8 @@ export class MarketController {
   @ApiOperation({summary:"Add role to market"})
   @ApiResponse({status: 200, description: 'Updated market', type: [Market]})
   @HttpCode(200)
-  // @Roles('SUPERADMIN')
-  // @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN')
   @Post('add_role')
   addRole(@Body() addRoleMarketDto: AddRoleMarketDto) {
     return this.marketService.addRole(addRoleMarketDto);
@@ -152,8 +145,8 @@ export class MarketController {
   @ApiOperation({summary:"Remove role from market"})
   @ApiResponse({status: 200, description: 'Updated market', type: [Market]})
   @HttpCode(200)
-  // @Roles('SUPERADMIN')
-  // @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN')
   @Post('remove_role')
   removeRole(@Body() addRoleMarketDto: AddRoleMarketDto) {
     return this.marketService.removeRole(addRoleMarketDto);

@@ -118,7 +118,7 @@ export class AdminService {
       hashed_password: hashed_password,
     });
 
-    const role = await this.roleService.getRoleByValue('MARKET');
+    const role = await this.roleService.getRoleByValue('USER');
     if (!role) {
       throw new BadRequestException('Role not found!');
     }
@@ -161,6 +161,7 @@ export class AdminService {
     const { email, password } = loginAdminDto
     const admin = await this.adminRepo.findOne({
       where: { email },
+      include: ['roles'], // Включите роли при загрузке клиента
     });
 
     if (!admin) {
@@ -192,6 +193,7 @@ export class AdminService {
     };
     return response;
   }
+
 
   async logout(refreshToken: string, res: Response) {
     const adminData = await this.jwtService.verify(refreshToken, {
@@ -254,10 +256,14 @@ export class AdminService {
   }
 
   async getTokens(admin: Admin) {
+    if (!admin || !admin.roles || !Array.isArray(admin.roles)) {
+      throw new BadRequestException('Invalid admin data');
+    }
+
     const jwtpayload = {
       id: admin.id,
       is_active: admin.is_active,
-      roles: admin.roles
+      roles: admin.roles.map(role => role.value)
     };
 
     const [accessToken, refreshToken] = await Promise.all([

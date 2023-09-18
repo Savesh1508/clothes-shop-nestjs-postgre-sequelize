@@ -18,8 +18,8 @@ export class BrandController {
   constructor(private readonly brandService: BrandService) {}
   @ApiOperation({summary:"Create brand"})
   @ApiResponse({status: 200, description: 'New brand', type: [Brand]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Post()
   async createBrand(@Body() createBrandDto: CreateBrandDto):Promise<Brand>{
     const brand = await this.brandService.createBrand(createBrandDto);
@@ -44,8 +44,8 @@ export class BrandController {
 
   @ApiOperation({summary:"Update brand by Id"})
   @ApiResponse({status: 200, description: 'Updated brand', type: [Brand]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Put(':id')
   async updateBrandById(@Param('id') id:string, @Body() updateComanyDto: UpdateBrandDto):Promise<Brand>{
     const brand = await this.brandService.updateBrandById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class BrandController {
 
   @ApiOperation({summary:"Delete brand by Id"})
   @ApiResponse({status: 200, description: 'Deleted brand', type: [Brand]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const brand = await this.brandService.deleteBrandById(+id);

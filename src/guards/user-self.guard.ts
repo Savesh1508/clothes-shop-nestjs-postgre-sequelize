@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class UserSelfGuard implements CanActivate {
-  constructor(private readonly jwtService:JwtService){}
+  constructor(private readonly jwtService:JwtService, ){}
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const req = context.switchToHttp().getRequest()
 
@@ -12,7 +12,7 @@ export class UserSelfGuard implements CanActivate {
       return true;
     }
 
-    if (String(req.user.id) !== req.params.id) {
+    if (String(req.user.id) !== String(req.params.id)) {
       throw new ForbiddenException({
         message: 'You don\'t have such rights!',
       });

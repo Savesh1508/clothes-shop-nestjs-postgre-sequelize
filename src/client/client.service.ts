@@ -39,7 +39,7 @@ export class ClientService {
       hashed_password: hashed_password,
     });
 
-    const role = await this.roleService.getRoleByValue('MARKET');
+    const role = await this.roleService.getRoleByValue('USER');
     // const role = await this.roleService.getRoleByValue('ADMIN');
     // const role = await this.roleService.getRoleByValue('SUPERADMIN');
     if (!role) {
@@ -118,7 +118,7 @@ export class ClientService {
       hashed_password: hashed_password,
     });
 
-    const role = await this.roleService.getRoleByValue('MARKET');
+    const role = await this.roleService.getRoleByValue('USER');
     if (!role) {
       throw new BadRequestException('Role not found!');
     }
@@ -161,6 +161,7 @@ export class ClientService {
     const { email, password } = loginClientDto
     const client = await this.clientRepo.findOne({
       where: { email },
+      include: ['roles'],
     });
 
     if (!client) {
@@ -192,6 +193,7 @@ export class ClientService {
     };
     return response;
   }
+
 
   async logout(refreshToken: string, res: Response) {
     const clientData = await this.jwtService.verify(refreshToken, {
@@ -254,10 +256,14 @@ export class ClientService {
   }
 
   async getTokens(client: Client) {
+    if (!client || !client.roles || !Array.isArray(client.roles)) {
+      throw new BadRequestException('Invalid client data');
+    }
+
     const jwtpayload = {
       id: client.id,
       is_active: client.is_active,
-      roles: client.roles
+      roles: client.roles.map(role => role.value)
     };
 
     const [accessToken, refreshToken] = await Promise.all([

@@ -51,14 +51,11 @@ export class RolesGuard implements CanActivate {
         message: "You are not registered!"
       });
     }
-    console.log(user);
     req.user = user;
 
-    const permission = user.roles.some((role: any) =>
-      requiredRoles.includes(role.value)
-    );
+    const hasPermission = user.roles.some((userRole: string) => requiredRoles.includes(userRole));
 
-    if (!permission) {
+    if (!hasPermission) {
       throw new ForbiddenException({
         message: 'You don\'t have such rights!'
       });

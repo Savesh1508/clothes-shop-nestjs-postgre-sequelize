@@ -18,8 +18,8 @@ export class ClothesController {
   constructor(private readonly clothesService: ClothesService) {}
   @ApiOperation({summary:"Create clothes"})
   @ApiResponse({status: 200, description: 'New clothes', type: [Clothes]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Post()
   async createClothes(@Body() createClothesDto: CreateClothesDto):Promise<Clothes>{
     const clothes = await this.clothesService.createClothes(createClothesDto);
@@ -44,8 +44,8 @@ export class ClothesController {
 
   @ApiOperation({summary:"Update clothes by Id"})
   @ApiResponse({status: 200, description: 'Updated clothes', type: [Clothes]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Put(':id')
   async updateClothesById(@Param('id') id:string, @Body() updateComanyDto: UpdateClothesDto):Promise<Clothes>{
     const clothes = await this.clothesService.updateClothesById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class ClothesController {
 
   @ApiOperation({summary:"Delete clothes by Id"})
   @ApiResponse({status: 200, description: 'Deleted clothes', type: [Clothes]})
-  // @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN', 'MARKET')
+  @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const clothes = await this.clothesService.deleteClothesById(+id);

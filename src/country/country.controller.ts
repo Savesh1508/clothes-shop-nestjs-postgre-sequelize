@@ -18,8 +18,8 @@ export class CountryController {
   constructor(private readonly countryService: CountryService) {}
   @ApiOperation({summary:"Create country"})
   @ApiResponse({status: 200, description: 'New country', type: [Country]})
-  // @Roles('SUPERADMIN', 'ADMIN')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   async createCountry(@Body() createCountryDto: CreateCountryDto):Promise<Country>{
     const country = await this.countryService.createCountry(createCountryDto);
@@ -44,8 +44,8 @@ export class CountryController {
 
   @ApiOperation({summary:"Update country by Id"})
   @ApiResponse({status: 200, description: 'Updated country', type: [Country]})
-  // @Roles('SUPERADMIN', 'ADMIN')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @Put(':id')
   async updateCountryById(@Param('id') id:string, @Body() updateComanyDto: UpdateCountryDto):Promise<Country>{
     const country = await this.countryService.updateCountryById(+id, updateComanyDto);
@@ -54,8 +54,8 @@ export class CountryController {
 
   @ApiOperation({summary:"Delete country by Id"})
   @ApiResponse({status: 200, description: 'Deleted country', type: [Country]})
-  // @Roles('SUPERADMIN', 'ADMIN')
-  // @UseGuards(RolesGuard)
+  @Roles('SUPERADMIN', 'ADMIN')
+  @UseGuards(RolesGuard)
   @Delete(':id')
   async deleteServiceById(@Param('id') id: string) {
     const country = await this.countryService.deleteCountryById(+id);

@@ -1,11 +1,11 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /clothes_shop
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["node", "app.js"]
+CMD ["node", "start"]
